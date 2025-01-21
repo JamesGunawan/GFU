@@ -13,8 +13,12 @@ import StudentCourses from './models/student_courses.js';
 import Admin from './models/admin.js';
 import Faculty from './models/faculty.js';
 
+// Import routes
+import { studentSignup, facultySignup, adminSignup, login } from './routes/authroutes.js';
 
 const app = express();  
+app.use(express.json()); // allows destructuring
+
 // Loads the environment variables from the .env file
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -32,11 +36,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
+// Set auth routes
+app.post('/studentSignup', studentSignup);
+app.post('/facultySignup', facultySignup);
+app.post('/adminSignup', adminSignup);
+app.post('/login', login);
+
+
 // Renders root as auth page
 app.get('/', (req, res) => {
     res.render('auth');
-})
+});
+
+app.get('/profile', (req, res) => {
+    res.render('profile');
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 }); 
+
+
+// ?

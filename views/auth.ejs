@@ -28,6 +28,9 @@
             <label for="signup_last_name">Last Name:</label>
             <input type="text" id="signup_last_name" required/>
 
+            <label for="signup_username" class="hidden">Username:</label>
+            <input type="text" id="signup_username" class="hidden" required />
+
             <label for="signup_email">Email:</label>
             <input type="email" id="signup_email" required/>
 
@@ -51,15 +54,12 @@
         <!-- Back side -->
         <div class="flipbox_back">
           <div class="login_form">
-            <h2>Login to Fintech</h2>
+            <h2>Login to GFU</h2>
             <form id="loginForm">
-              <label for="username">Username:</label>
-              <input type="text" id="login_username" required/>
+              <label for="login_credential">Username or Email:</label>
+              <input type="text" id="login_credential" required/>
   
-              <label for="first_name">Email:</label>
-              <input type="text" id="login_email" required/>
-  
-              <label for="last_name">Password:</label>
+              <label for="login_password">Password:</label>
               <input type="password" id="login_password" required/>
               <button type="submit">Sign in</button>
             </form>
@@ -73,5 +73,6 @@
     </div>
   </div>
 
+  <script src="/auth.js"></script>
 </body>
 </html>

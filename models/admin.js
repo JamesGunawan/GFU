@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/dbconfig.js";
+import bcrypt from "bcrypt";
 
 const Admin = sequelize.define('Admin', {
     admin_id: {
@@ -11,14 +12,6 @@ const Admin = sequelize.define('Admin', {
     username: {
         type: DataTypes.STRING(50),
     },
-    first_name: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    last_name: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
     email: {
         type: DataTypes.STRING(100),
         unique: true,
@@ -27,6 +20,12 @@ const Admin = sequelize.define('Admin', {
     password: { 
         type: DataTypes.STRING(255),
         allowNull: false
+    }
+}, {
+    // Hash the password before saving
+    hooks: async (admin) => {
+        const salt = await bcrypt.genSalt(10);
+        admin.password = await bcrypt.hash(admin.password, salt);
     }
 });
 

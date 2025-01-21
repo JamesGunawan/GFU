@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/dbconfig.js";
+import bcrypt from "bcrypt";
 
 const Student = sequelize.define('Student', {
     student_id: {
@@ -10,7 +11,7 @@ const Student = sequelize.define('Student', {
     },
     username: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        defaultValue: 'temporary username',
         unique: true
       },
     first_name: {
@@ -46,12 +47,37 @@ const Student = sequelize.define('Student', {
     }
 }, {
     hooks: {
-        beforeCreate: async (student) => {
-          const first_inital = student.first_name[0].toLowerCase();
-          const last_name = student.last_name.toLowerCase();
-          const student_id = student.student_id;
-    
-          student.username = `${first_inital}${last_name}${student_id}@student.gfu.edu`;
+        beforeSave: async (student) => {
+            const first_initial = student.first_name[0].toLowerCase();
+            const last_name = student.last_name.toLowerCase();
+
+            // Use a temporary student_id if it's not yet available
+            let student_id = student.student_id;
+
+            // Generate a temporary username based on first initial and last name
+            student.username = `${first_initial}${last_name}@student.gfu.edu`;
+
+            // Add the logic to handle when student_id is available after insertion
+            if (student_id) {
+                student.username = `${first_initial}${last_name}${student_id}@student.gfu.edu`;
+            }
+
+            // Hash the password before saving
+            if (student.password) {
+                const salt = await bcrypt.genSalt(10);
+                student.password = await bcrypt.hash(student.password, salt);
+            }
+        },
+        afterSave: async (student) => {
+            // Update username after the student has been saved and student_id is available
+            if (student.student_id && !student.username.includes(student.student_id)) {
+                const first_initial = student.first_name[0].toLowerCase();
+                const last_name = student.last_name.toLowerCase();
+                student.username = `${first_initial}${last_name}${student.student_id}@student.gfu.edu`;
+
+                // Update the record in the database
+                await student.update({ username: student.username });
+            }
         }
     }
 });
