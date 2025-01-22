@@ -7,42 +7,51 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  margin-top: -12.5%;
   overflow-y: hidden;
 }
 
-.signup_form  {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  width: 100%;
-  max-width: 400px;
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222222;
+  width: 100vw;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
 }
 
-.login_form  {
+.signup_form, .login_form{
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   width: 100%;
   max-width: 400px;
+  margin-top: -42.5vh;
 }
 
 #login_button, #signup_button {
   text-decoration: underline;
-  color: blue;
+  color: #32a852;
+  cursor: pointer;
+}
+
+
+#login_button:hover, #signup_button:hover {
+  text-decoration: underline;
+  color: #248f40;
   cursor: pointer;
 }
 
 .title {
-  margin-bottom: 2.5%;
+  margin-bottom: 45vh;
 }
 
 h2 {
@@ -73,7 +82,7 @@ input {
 
 button {
   padding: 10px;
-  background-color: rgb(38, 38, 190);
+  background-color: #32a852;
   color: white;
   border: none;
   border-radius: 4px;
@@ -81,7 +90,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(68, 68, 211);
+  background-color: #248f40;
 }
 
 #message {
@@ -94,7 +103,6 @@ button:hover {
   background-color: transparent;
   width: 400px;
   height: 200px;
-  border: 1px solid #f1f1f1;
   perspective: 1000px;
 }
 
