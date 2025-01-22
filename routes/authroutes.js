@@ -74,67 +74,103 @@ const adminSignup = async (req, res) => {
 };
 
 // Login user
+const SECRET_KEY = process.env.JWT_SECRET; // Load the secret key for JWT from .env
+
 const login = async (req, res) => {
-  const { credential, password } = req.body; // Use `credential` from the frontend
+  const { credentials, password } = req.body; // Destructuring credentials and password from request body
+
+  console.log('Login attempt with credentials:', credentials);
+
   try {
-    if (!credential || !password) {
-      return res.status(400).json({ messages: 'Email/Username and password are required' });
-    }
+    let user = null; // Placeholder for user object
+    let userType = ''; // To store the user type for identifying the table and ID
 
-    let user, userType;
-
-    // Check if it's an email or username
-    if (credential.includes('@')) {
-      // Check for student email
-      if (credential.includes('@student.gfu.edu')) {
-        user = await Student.findOne({ where: { email: credential } });
+    if (credentials.includes('@')) {
+      // If credentials is an email
+      console.log('Credentials identified as an email');
+      if (credentials.includes('@student.gfu.edu')) {
+        user = await Student.findOne({ where: { username: credentials } });
         userType = 'student';
-      }
-      // Check for faculty email
-      else if (credential.includes('@faculty.gfu.edu')) {
-        user = await Faculty.findOne({ where: { email: credential } });
+      } else if (credentials.includes('@faculty.gfu.edu')) {
+        user = await Faculty.findOne({ where: { username: credentials } });
         userType = 'faculty';
-      }
-      // Check for admin email
-      else {
-        user = await Admin.findOne({ where: { email: credential } });
+      } else if (credentials.includes('@admin.gfu.edu')) {
+        user = await Admin.findOne({ where: { username: credentials } });
         userType = 'admin';
+      } else {
+        user = await Admin.findOne({ where: { email: credentials } }) ||
+               await Faculty.findOne({ where: { email: credentials } }) ||
+               await Student.findOne({ where: { email: credentials } });
+    
+        userType = user instanceof Student ? 'student' :
+                   user instanceof Faculty ? 'faculty' :
+                   user instanceof Admin ? 'admin' : null;
       }
+    } else if (credentials.includes('@student.gfu.edu')) {
+      // If credentials is a student username
+      console.log('Credentials identified as a Student username');
+      user = await Student.findOne({ where: { username: credentials } });
+      userType = 'student';
+    } else if (credentials.includes('@faculty.gfu.edu')) {
+      // If credentials is a faculty username
+      console.log('Credentials identified as a Faculty username');
+      user = await Faculty.findOne({ where: { username: credentials } });
+      userType = 'faculty';
     } else {
-      // Handle username-based login
-      // Admin can have any username
-      user = await Admin.findOne({ where: { username: credential } }) || 
-             await Faculty.findOne({ where: { username: credential } }) || 
-             await Student.findOne({ where: { username: credential } });
-      
-      userType = user instanceof Student ? 'student' : 
-                 user instanceof Faculty ? 'faculty' : 
-                 user instanceof Admin ? 'admin' : null;
+      // Assuming any other username is an Admin username
+      console.log('Credentials identified as an Admin username');
+      user = await Admin.findOne({ where: { username: credentials } });
+      userType = 'admin';
     }
 
-    if (!user || !userType) {
-      return res.status(404).json({ messages: 'User not found' });
+    if (!user) {
+      // If no user is found
+      console.log('No user found for provided credentials:', credentials);
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // Compare the provided password with the hashed password
+    console.log(`User found:`, user);
+
+    // Compare provided password with the hashed password in the database
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      return res.status(400).json({ messages: 'Invalid credentials' });
+      console.log('Invalid password for user:', credentials);
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // If login is successful, generate a JWT
+    console.log('Password validation successful');
+
+    // Determine the user ID field based on the user type
+    const userIdField =
+      userType === 'student'
+        ? 'student_id'
+        : userType === 'faculty'
+        ? 'faculty_id'
+        : userType === 'admin'
+        ? 'admin_id'
+        : 'user_id'; // Default fallback for general email-based login
+
+    // Generate a JWT
     const token = jwt.sign(
-      { userId: user.user_id, email: user.email || user.username, userType },
+      {
+        userId: user[userIdField],
+        email: user.email || null,
+        username: user.username || null,
+      },
       SECRET_KEY,
       { expiresIn: '1h' }
     );
 
-    res.json({ token, userId: user.user_id, userType });
+    console.log('JWT generated successfully:', token);
+
+    // Respond with the token and userId
+    res.json({ token, userId: user[userIdField], userType });
   } catch (error) {
-    console.error('Login Error:', error); // Log the error for debugging
-    res.status(500).json({ messages: 'Error logging in', error });
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Error logging in', error });
   }
 };
+
 
 
 export { studentSignup, facultySignup, adminSignup, login };

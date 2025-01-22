@@ -11,6 +11,14 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST,
         dialect: process.env.DB_DIALECT,
     }
-)
+);
+
+// Check database connection
+try {
+    sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+    } catch (err) {
+        console.error('Unable to connect to the database:', err);
+}
 
 export default sequelize; // Export the Sequelize instance

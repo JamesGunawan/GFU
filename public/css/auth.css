@@ -43,7 +43,6 @@ body {
 
 .title {
   margin-bottom: 2.5%;
-  color: blue;
 }
 
 h2 {
@@ -89,10 +88,6 @@ button:hover {
   margin-top: 20px;
   text-align: center;
   color: red;
-}
-
-.white {
-  color: black;
 }
 
 .flipbox {

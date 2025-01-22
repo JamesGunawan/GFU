@@ -21,11 +21,13 @@ const Admin = sequelize.define('Admin', {
         type: DataTypes.STRING(255),
         allowNull: false
     }
-}, {
+}, {    
     // Hash the password before saving
-    hooks: async (admin) => {
-        const salt = await bcrypt.genSalt(10);
-        admin.password = await bcrypt.hash(admin.password, salt);
+    hooks: {
+        beforeCreate: async (admin) => {
+            const salt = await bcrypt.genSalt(10);
+            admin.password = await bcrypt.hash(admin.password, salt);
+        }
     }
 });
 

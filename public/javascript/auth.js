@@ -111,22 +111,20 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
     }
 });
 
-// Login form validation
+// Login form validation //RESUME WORKING HERE aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
   e.preventDefault(); // Prevent default form submission
 
   // Get form values
-  const credential = document.getElementById('login_credential').value; // Can be username or email
+  const credentials = document.getElementById('login_credential').value; // Can be username or email
   const password = document.getElementById('login_password').value;
   const message = document.getElementById('messages');
 
   // Prepare the data to send in the request body
   const loginData = {
-    credential, // Pass credential as username or email
+    credentials, // Pass credential as username or email
     password
   };
-
-  console.log('Request Data:', loginData); // Log the request data
 
   try {
     // Send a POST request to the backend login endpoint
@@ -146,8 +144,6 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       const userId = result.userId; // User ID returned from the server
       const userType = result.userType; // User type returned from the server
 
-      console.log('Response Data:', result); // Log the response data
-
       // Store the token and userId in sessionStorage
       sessionStorage.setItem('jwt', token);
       sessionStorage.setItem('userId', userId);
@@ -162,20 +158,18 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       // Determine redirection path based on userType
       const redirectPath = validLoginTypes[userType];
       if (redirectPath) {
-        window.location.href = redirectPath;
+        window.location.href = `/profile${redirectPath}`;
       } else {
         message.textContent = 'Unknown user type.';
         message.style.color = 'red';
       }
     } else {
-      console.log('Response Error:', result); // Log error response data
       message.textContent = result.message || 'Invalid username/email or password.';
       message.style.color = 'red';
       message.style.zIndex = '1';
       message.style.marginTop = '10px';
     }
   } catch (error) {
-    console.error('Error connecting to the server:', error); // Log connection errors
     message.textContent = 'Error connecting to the server.';
     message.style.color = 'red';
   }
