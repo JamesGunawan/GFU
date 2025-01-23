@@ -1,7 +1,7 @@
 /* General styles */
 body {
     font-family: "Arial", sans-serif;
-    background-color: #2b2d31;
+    background-color: #1c1e22;
     margin: 0;
     padding: 0;
     display: flex;
@@ -24,14 +24,16 @@ body {
 }
 
 .photo-container {
-    background-color: white;
+    background-color: #ffffff;
     flex-direction: column-reverse;
     width: 40vh;
     margin-left: auto;
     margin-bottom: -62.5vh;
     height: 60vh;
     border-radius: 15px;
-}
+    position: relative; 
+    overflow: visible;
+  }
 
 .info-container {
     display: flex;
@@ -39,4 +41,64 @@ body {
     align-items: center;
     flex-direction: column;
     width: 70vh;
+}
+
+
+.photo-container h1 {
+    width: 100%; 
+    text-align: center; 
+    color: black; 
+    height: 100px; /* set a height to demonstrate vertical alignment */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+.photo-container h4 {
+    position: absolute; 
+    bottom: -70px;
+    left: 0; 
+    width: 100%; 
+    text-align: center; 
+    color: white; 
+  }
+
+.photo-container h3 {
+    position: absolute; 
+    bottom: -45px;
+    left: 0; 
+    width: 100%; 
+    text-align: center; 
+    color: white; 
+  }
+
+.info-container h3 {
+    color: #00a651;
+    margin-bottom: 5px;
+}
+
+.info-container h4 {
+    margin: 0;
+    padding: 5px 10px;
+    border: 3px solid #00a651;
+    border-radius: 5px;
+    color: #ffffff; 
+    background-color: #1e1f24; 
+    width: inherit;
+}
+
+.edit-button, .modify-button {
+    float: right;
+    background-color: #00a651; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover, .modify-button:hover {
+    background-color: #007b3e; /* Darker green on hover */
 }

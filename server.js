@@ -44,4 +44,19 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 }); 
 
+// Renders profile.ejs as /profile page
+app.get('/profile', (req, res) => {
+    res.render('profile', {profile:{}});
+});
+
+
+// Faculty profile route
+app.get('/profile/facultyProfile', (req, res) => {
+    res.render('profile', { profile: facultyProfile });
+});
+
+// Student profile route
+app.get('/profile/studentProfile', (req, res) => {
+    res.render('profile', { profile: studentProfile });
+});
 

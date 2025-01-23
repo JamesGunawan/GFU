@@ -11,35 +11,41 @@
         <form>
             <h1>Profile</h1>
             <div class="photo-container">
-                <h1>abc</h1>
+                <h1><%= profile.name || "Default Name" %></h1>
+                <h3><%= profile.id || "No ID Provided" %></h3>
+                <h4><%= profile.role || "No Role Specified" %></h4>
             </div>
             <div class="info-container">
                 <h3>Username</h3>
-                abc
+                <h4><%= profile.username || "No Username" %></h4>
             </div>
             <div class="info-container">
                 <h3>First Name</h3>
-                abc
+                <h4><%= profile.firstName || "No First Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Last Name</h3>
-                abc
+                <h4><%= profile.lastName || "No Last Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Email</h3>
-                abc
+                <h4><%= profile.email || "No Email" %></h4>
             </div>
             <div class="info-container">
                 <h3>Date of Birth</h3>
-                abc
+                <h4><%= profile.dob || "No Date of Birth" %></h4>
             </div>
             <div class="info-container">
                 <h3>Phone Number</h3>
-                abc
+                <h4><%= profile.phone || "No Phone Number" %></h4>
             </div>
             <div class="info-container">
                 <h3>Address</h3>
-                abc
+                <h4><%= profile.address || "No Address" %></h4>
+            </div>
+            <div class="mofidy-container">  
+                <button type="submit" class="modify-button">Save</button>
+                <button type="button" class="edit-button">Edit</button>
             </div>
         </form>
     </div>
