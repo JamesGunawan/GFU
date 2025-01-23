@@ -124,7 +124,7 @@ const login = async (req, res) => {
     }
 
     if (!user) {
-      // If no user is found
+      // If no user is found  
       console.log('No user found for provided credentials:', credentials);
       return res.status(404).json({ message: 'User not found' });
     }

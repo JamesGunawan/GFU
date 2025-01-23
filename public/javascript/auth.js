@@ -48,70 +48,91 @@ document.getElementById('sign_up_type').addEventListener('change', function () {
 
 // Sign up form validation
 document.getElementById('signUpForm').addEventListener('submit', async function (e) {
-    e.preventDefault();  // Prevent the default form submission
+  e.preventDefault();  // Prevent the default form submission
 
-    // Get form values
-    const username = document.getElementById('signup_username').value;
-    const first_name = document.getElementById('signup_first_name').value;
-    const last_name = document.getElementById('signup_last_name').value;
-    const email = document.getElementById('signup_email').value;
-    const password = document.getElementById('signup_password').value;
-    const signupType = document.getElementById('sign_up_type').value;
-    const message = document.getElementById('message');
-  
-    // Clear the message div before submitting
-    document.getElementById('message').textContent = '';
-  
-    // Create an object to send in the request body
-    const signupData = {
-      username,
-      first_name,
-      last_name,
-      email,
-      password
-    };
+  // Get form values
+  const username = document.getElementById('signup_username').value;
+  const first_name = document.getElementById('signup_first_name').value;
+  const last_name = document.getElementById('signup_last_name').value;
+  const email = document.getElementById('signup_email').value;
+  const password = document.getElementById('signup_password').value;
+  const match_password = document.getElementById('password_confirmation').value;
+  const signupType = document.getElementById('sign_up_type').value;
+  const message = document.getElementById('message');
 
-    const validSignupTypes = {
-      student: '/studentSignup',
-      faculty: '/facultySignup',
-      admin: '/adminSignup',
-    };
+  // Clear the message div before submitting
+  document.getElementById('message').textContent = '';
 
-      // Validate signup type
-      if (!validSignupTypes[signupType]) {
-        message.textContent = 'Invalid signup type selected.';
-        message.style.color = 'red';
-        return;
-    };
-  
-    try {
-      const endpoint = validSignupTypes[signupType];
+  // Simple password check confirmation
+  function passwordCheck(password, match_password) {
+    if (password !== match_password) {
+      message.textContent = 'Passwords do not match';
+      return false;
+    }
+    return true;
+  }
 
-      // Send a POST request to the backend to create a new user
-      const response = await fetch(`http://localhost:3000${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(signupData),
-      });
-  
-      const result = await response.json();
-  
-      // If the response contains a user, that means sign-up was successful
-      if (response.status === 201) {
-        window.location.href = `/profile${endpoint}`;
-      } else {
-        message.textContent = result.message || 'An error occurred.';
-        message.style.color = 'red';
-      }
-    } catch (error) {
-      message.textContent = 'Error connecting to the server.';
+  // Create an object to send in the request body
+  const signupData = {
+    username,
+    first_name,
+    last_name,
+    email,
+    password
+  };
+
+  const validSignupTypes = {
+    student: '/studentSignup',
+    faculty: '/facultySignup',
+    admin: '/adminSignup',
+  };
+
+    // Validate signup type
+    if (!validSignupTypes[signupType]) {
+      message.textContent = 'Invalid signup type selected.';
+      message.style.color = 'red';
+      return;
+  };
+
+  // Compare password and confirm password
+  try {
+    if (!passwordCheck(password, match_password)) { 
+      return; // Stop the function if passwords don't match
+    }
+  } catch (error) {
+    message.textContent = 'Error validating passwords.';
+    message.style.color = 'red';
+    return;
+  }
+
+  try {
+    const endpoint = validSignupTypes[signupType];
+
+    // Send a POST request to the backend to create a new user
+    const response = await fetch(`http://localhost:3000${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(signupData),
+    });
+
+    const result = await response.json();
+
+    // If the response is successful, redirect them
+    if (response.status === 201) {
+      window.location.href = `/profile${endpoint}`;
+    } else {
+      message.textContent = result.message || 'An error occurred.';
       message.style.color = 'red';
     }
+  } catch (error) {
+    message.textContent = 'Error connecting to the server.';
+    message.style.color = 'red';
+  }
 });
 
-// Login form validation //RESUME WORKING HERE aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+// Login form validation
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
   e.preventDefault(); // Prevent default form submission
 
@@ -144,7 +165,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       const userId = result.userId; // User ID returned from the server
       const userType = result.userType; // User type returned from the server
 
-      // Store the token and userId in sessionStorage
+      // Store the token and userId in sessionStorage //change this to cookie based to be more secure
       sessionStorage.setItem('jwt', token);
       sessionStorage.setItem('userId', userId);
 

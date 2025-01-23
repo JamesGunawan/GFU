@@ -5,14 +5,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Import models
-import Student from './models/students.js';
-import Course from './models/courses.js';
-import Payments from './models/payments.js';
-import StudentCourses from './models/student_courses.js';
-import Admin from './models/admin.js';
-import Faculty from './models/faculty.js';
-
 // Import routes
 import { studentSignup, facultySignup, adminSignup, login } from './routes/authroutes.js';
 
@@ -48,13 +40,8 @@ app.get('/', (req, res) => {
     res.render('auth');
 });
 
-app.get('/profile', (req, res) => {
-    res.render('profile');
-});
-
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 }); 
 
 
-// ?

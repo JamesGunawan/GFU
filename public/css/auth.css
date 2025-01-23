@@ -12,8 +12,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  overflow-y: hidden;
+  height: 105vh;
+  overflow-x: hidden;
 }
 
 header {
@@ -34,7 +34,7 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   width: 100%;
   max-width: 400px;
-  margin-top: -42.5vh;
+  margin-top: -47.5vh;
 }
 
 #login_button, #signup_button {
@@ -51,7 +51,7 @@ header {
 }
 
 .title {
-  margin-bottom: 45vh;
+  margin-bottom: 50vh;
 }
 
 h2 {
