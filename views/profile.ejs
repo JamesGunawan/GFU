@@ -11,9 +11,9 @@
         <form>
             <h1>Profile</h1>
             <div class="photo-container">
-                <h1><%= profile.name || "Default Name" %></h1>
-                <h3><%= profile.id || "No ID Provided" %></h3>
-                <h4><%= profile.role || "No Role Specified" %></h4>
+                <h1>Picture</h1>
+                <h3><%= profile.type + profile.id || "No ID Provided" %></h3>
+                <h4>Upload Picture</h4>
             </div>
             <div class="info-container">
                 <h3>Username</h3>
@@ -21,11 +21,11 @@
             </div>
             <div class="info-container">
                 <h3>First Name</h3>
-                <h4><%= profile.firstName || "No First Name" %></h4>
+                <h4><%= profile.first_name || "No First Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Last Name</h3>
-                <h4><%= profile.lastName || "No Last Name" %></h4>
+                <h4><%= profile.last_name || "No Last Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Email</h3>
@@ -44,10 +44,11 @@
                 <h4><%= profile.address || "No Address" %></h4>
             </div>
             <div class="mofidy-container">  
-                <button type="submit" class="modify-button">Save</button>
+                <button type="submit" class="save-button">Save</button>
                 <button type="button" class="edit-button">Edit</button>
             </div>
         </form>
     </div>
+    <script src="/javascript/profile.js"></script>
 </body>
 </html>

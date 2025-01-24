@@ -6,7 +6,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 // Import routes
-import { studentSignup, facultySignup, adminSignup, login } from './routes/authroutes.js';
+import { studentSignup, facultySignup, adminSignup, login } from './routes/authRoutes.js';
+import router from './routes/index.js';
 
 const app = express();  
 app.use(express.json()); // allows destructuring
@@ -35,28 +36,12 @@ app.post('/adminSignup', adminSignup);
 app.post('/login', login);
 
 
-// Renders root as auth page
-app.get('/', (req, res) => {
-    res.render('auth');
-});
+// Renders everything using a central router in ./routes/index.js
+app.use('/', router);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 }); 
 
-// Renders profile.ejs as /profile page
-app.get('/profile', (req, res) => {
-    res.render('profile', {profile:{}});
-});
 
-
-// Faculty profile route
-app.get('/profile/facultyProfile', (req, res) => {
-    res.render('profile', { profile: facultyProfile });
-});
-
-// Student profile route
-app.get('/profile/studentProfile', (req, res) => {
-    res.render('profile', { profile: studentProfile });
-});
 

@@ -168,18 +168,19 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       // Store the token and userId in sessionStorage //change this to cookie based to be more secure
       sessionStorage.setItem('jwt', token);
       sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('userType', userType)
 
-      // Define redirection paths
+      // Define redirection paths 
       const validLoginTypes = {
-        student: '/studentDashboard',
-        faculty: '/facultyDashboard',
-        admin: '/adminDashboard',
+        student: '/studentProfile',
+        faculty: '/facultyProfile',
+        admin: '/adminProfile',
       };
 
       // Determine redirection path based on userType
       const redirectPath = validLoginTypes[userType];
       if (redirectPath) {
-        window.location.href = `/profile${redirectPath}`;
+        window.location.href = `/profile${redirectPath}?token=${token}`;
       } else {
         message.textContent = 'Unknown user type.';
         message.style.color = 'red';
@@ -195,3 +196,5 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     message.style.color = 'red';
   }
 });
+
+

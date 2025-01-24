@@ -1,10 +1,16 @@
-// index.js
+// routes/index.js
 import express from 'express';
-import profileRouter from './public_routes.js'; // Adjusted path for clarity
+import { rootRouter, profileRouter } from './publicRoutes.js';
+import { studentProfile, facultyProfile, adminProfile } from './profileRoutes.js';
 
 const router = express.Router();
 
-// Mount the profileRouter on the /profile path
-router.use('/profile', profileRouter);
+// Define the profile route
+router.use('/', rootRouter);
+router.use('/', profileRouter);
+router.use('/', studentProfile, facultyProfile, adminProfile);
+
+// Export them as named exports
+
 
 export default router;
