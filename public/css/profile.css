@@ -24,16 +24,21 @@ body {
 }
 
 .photo-container {
+    display: flex;
     background-color: #ffffff;
-    flex-direction: column-reverse;
     width: 40vh;
     margin-left: auto;
     margin-bottom: -62.5vh;
     height: 60vh;
     border-radius: 15px;
     position: relative; 
-    overflow: visible;
+    justify-content: center;
+    align-items: center;   
   }
+
+.profile-header {
+    display: flex;
+}
 
 .info-container {
     display: flex;
@@ -113,4 +118,15 @@ body {
     width: inherit;
     font-size: 1em;
     font-weight: bold;
+}
+
+.default_image {
+    width: 300px;
+    height: 300px;
+}
+
+.logo {
+    width: 100px;
+    margin-left: auto;
+    margin-right: 107.5px;
 }

@@ -128,5 +128,60 @@ adminProfile.get('/profile/adminProfile', async (req, res) => {
     }
   });
 
+// Utility function to get the model based on userType
+const getUserTypeModel = (userType) => {
+    switch (userType) {
+        case 'student':
+            return Student;
+        case 'faculty':
+            return Faculty;
+        case 'admin':
+            return Admin;
+        default:
+            return null; // If userType doesn't match any valid type
+    }
+};
 
-export { studentProfile, facultyProfile, adminProfile };
+// Updates the user profile
+const updateProfile = async (req, res) => {
+  try {
+    const { username, first_name, last_name, email, dob, phone, address, userType, userId } = req.body;
+
+    // Log the update query
+    console.log('Update Query:', `UPDATE ${userType} SET username = ?, first_name = ?, last_name = ?, email = ?, dob = ?, phone = ?, address = ? WHERE id = ?`, [username, first_name, last_name, email, dob, phone, address, userId]);
+
+    // Update the user's profile
+    const user = await getUserTypeModel(userType).findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User  not found' });
+    }
+    const existingUser  = await getUserTypeModel(userType).findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' }); // Return error if email exists // FIX THIS
+    }
+
+    // Log the model before the update
+    console.log('Model Before Update:', user);
+
+    await user.update({
+      username,
+      first_name,
+      last_name,
+      email,
+      dob,
+      phone,
+      address
+    });
+
+    // Log the model after the update
+    console.log('Model After Update:', user);
+
+    // Return success response
+    return res.json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    return res.status(500).json({ message: 'Error updating profile', error: error.message });
+  }
+};
+
+export { studentProfile, facultyProfile, adminProfile, updateProfile};

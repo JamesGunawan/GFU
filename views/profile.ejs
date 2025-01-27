@@ -9,42 +9,44 @@
 <body>
     <div id="profile-container">
         <form>
-            <h1>Profile</h1>
+            <div class="profile-header">
+                <h1>Profile</h1>
+                <img src="/icons/logo.png" alt="GFU_logo" class="logo">
+            </div>
             <div class="photo-container">
-                <h1>Picture</h1>
+                <img src="/icons/profile.png" alt="default picture" class="default_image">
                 <h3><%= profile.type + profile.id || "No ID Provided" %></h3>
-                <h4>Upload Picture</h4>
             </div>
             <div class="info-container">
                 <h3>Username</h3>
-                <h4><%= profile.username || "No Username" %></h4>
+                <h4 id="username"><%= profile.username || "No Username" %></h4>
             </div>
             <div class="info-container">
                 <h3>First Name</h3>
-                <h4><%= profile.first_name || "No First Name" %></h4>
+                <h4 id="first_name"><%= profile.first_name || "No First Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Last Name</h3>
-                <h4><%= profile.last_name || "No Last Name" %></h4>
+                <h4 id="last_name"><%= profile.last_name || "No Last Name" %></h4>
             </div>
             <div class="info-container">
                 <h3>Email</h3>
-                <h4><%= profile.email || "No Email" %></h4>
+                <h4 id="email"><%= profile.email || "No Email" %></h4>
             </div>
             <div class="info-container">
                 <h3>Date of Birth</h3>
-                <h4><%= profile.dob || "No Date of Birth" %></h4>
+                <h4 id="dob"><%= profile.dob || "No Date of Birth" %></h4>
             </div>
             <div class="info-container">
                 <h3>Phone Number</h3>
-                <h4><%= profile.phone || "No Phone Number" %></h4>
+                <h4 id="phone"><%= profile.phone || "No Phone Number" %></h4>
             </div>
             <div class="info-container">
                 <h3>Address</h3>
-                <h4><%= profile.address || "No Address" %></h4>
+                <h4 id="address"><%= profile.address || "No Address" %></h4>
             </div>
             <div class="mofidy-container">  
-                <button type="submit" class="save-button">Save</button>
+                <button type="submit" class="save-button" style="display: none;">Save</button>
                 <button type="button" class="edit-button">Edit</button>
             </div>
         </form>

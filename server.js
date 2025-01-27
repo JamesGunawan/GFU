@@ -7,6 +7,7 @@ import { dirname } from 'path';
 
 // Import routes
 import { studentSignup, facultySignup, adminSignup, login } from './routes/authRoutes.js';
+import { updateProfile } from './routes/profileRoutes.js'
 import router from './routes/index.js';
 
 const app = express();  
@@ -34,14 +35,17 @@ app.post('/studentSignup', studentSignup);
 app.post('/facultySignup', facultySignup);
 app.post('/adminSignup', adminSignup);
 app.post('/login', login);
+app.post('/updateProfile', updateProfile);
 
 
 // Renders everything using a central router in ./routes/index.js
 app.use('/', router);
 
+// Handle 404 errors (this should always be the last route)
+app.use((req, res) => {
+    res.status(404).render('404'); // Render the 404.ejs file
+  });
+  
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 }); 
-
-
-
