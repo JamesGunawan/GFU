@@ -3,6 +3,7 @@ import express from 'express';
 const rootRouter = express.Router();
 const profileRouter = express.Router();
 const dashboardRouter = express.Router();
+const coursesRouter =  express.Router();
 
 // Renders root
 rootRouter.get('/', (req, res) => {
@@ -18,5 +19,10 @@ dashboardRouter.get('/dashboard', (req, res) => {
     res.render('dashboard', {profile:{}});
 });
 
+coursesRouter.get('/courses', (req, res) => {
+    res.render('courses', {profile:{}});
+});
 
-export { rootRouter, profileRouter, dashboardRouter};
+
+
+export { rootRouter, profileRouter, dashboardRouter, coursesRouter };

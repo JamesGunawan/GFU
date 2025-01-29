@@ -106,3 +106,25 @@ document.querySelector('.save-button').addEventListener('click', async (e) => {
         alert('Error updating profile');
     }
 });
+
+// Get the user type from sessionStorage
+const userType = sessionStorage.getItem('userType');
+const token = sessionStorage.getItem('jwt');
+
+// Define the base URL for the dashboard page
+const dashboardUrl = '/dashboard/';
+
+// Define the dashboard page URLs for each user type
+const dashboardUrls = {
+  admin: 'adminDashboard',
+  student: 'studentDashboard',
+  faculty: 'facultyDashboard',
+};
+
+// Get the anchor tag element
+const dashboardLink = document.querySelector('a[href="/dashboard"]');
+
+// Update the href attribute based on the user type
+if (userType && dashboardUrls[userType]) {
+  dashboardLink.href = `${dashboardUrl}${dashboardUrls[userType]}?token=${token}`;
+}

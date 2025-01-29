@@ -1,7 +1,8 @@
 // routes/index.js
 import express from 'express';
-import { rootRouter, profileRouter, dashboardRouter} from './publicRoutes.js';
+import { rootRouter, profileRouter, dashboardRouter, coursesRouter } from './publicRoutes.js';
 import { studentProfile, facultyProfile, adminProfile, updateProfile } from './profileRoutes.js';
+import { studentDashboard } from './dashboardRoutes.js';
 
 const router = express.Router();
 
@@ -18,6 +19,12 @@ router.use('/', dashboardRouter);
 router.use('/', studentProfile, facultyProfile, adminProfile);
 
 // Updating profile
-router.post('/', updateProfile)
+router.post('/', updateProfile);
+
+// Display all the dashboard
+router.use('/', studentDashboard);
+
+// Displays course page
+router.use('/', coursesRouter);
 
 export default router;

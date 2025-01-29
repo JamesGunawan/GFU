@@ -119,7 +119,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
 
     const result = await response.json();
 
-    // If the response is successful, redirect them
+    // If the response is successful, display a success message and flip the form
     if (response.status === 201) {
       message.textContent = "Signup Succesfull! You can now login";
       message.style.color = 'green';

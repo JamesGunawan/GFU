@@ -1,10 +1,14 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
+import Student from '../models/students.js';
+import Faculty from '../models/faculty.js';
+import Admin from '../models/admin.js';
 
 const studentDashboard = express.Router();
-const facultyDashboard = express.Router();
+const facultyDashboard = express.Router(); 
 const adminDashboard = express.Router();
 
-studentDashboard.get('/profile/studentProfile', async (req, res) => {
+studentDashboard.get('/dashboard/studentDashboard', async (req, res) => {
     const token = req.query.token; // Get the token from the query parameters
   
     if (!token) {
@@ -19,25 +23,18 @@ studentDashboard.get('/profile/studentProfile', async (req, res) => {
   
       // Find the user by userId
       const user = await Student.findByPk(userId);
-      if (!user) {
+      if (!user) {  
         return res.status(404).json({ message: 'User not found' });
       }
   
       // Return the user's profile
       const userProfile = {
-        id: user.student_id, 
-        username: user.username,
-        first_name: user.first_name,
+        first_name: user.first_name + " ",
         last_name: user.last_name,
-        email: user.email,
-        dob: user.dob,
-        phone: user.phone,  
-        address: user.address,
-        type: 'Student ID : '
       };
   
       // Render the profile page with the user's data
-      res.render('profile', { profile: userProfile });
+      res.render('dashboard', { profile: userProfile });
   
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -45,3 +42,4 @@ studentDashboard.get('/profile/studentProfile', async (req, res) => {
     }
   });
 
+  export { studentDashboard };

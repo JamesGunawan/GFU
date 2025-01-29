@@ -12,8 +12,8 @@
            <img src="/icons/logo.png" alt="GFU_logo" class="logo">
             <div class="logo">Dashboard</div>
             <ul class="nav-links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Courses</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/courses">Courses</a></li>
                 <li><a href="#">Student Services</a></li>
             </ul>
             <div class="settings-icon">
@@ -24,7 +24,7 @@
 
     <main>
         <div class="dashboard-content">
-            <h1><%= profile.first_name + profile.last_name || "Welcome User" %>!</h1>
+            <h1><%= "Welcome " + profile.first_name + profile.last_name || "Welcome User" %>!</h1>
             <div class="sections">
                 <div class="notifications">
                     <h2>Notifications</h2>
