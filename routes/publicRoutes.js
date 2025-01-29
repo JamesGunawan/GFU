@@ -15,7 +15,7 @@ profileRouter.get('/profile', (req, res) => {
 });
 
 dashboardRouter.get('/dashboard', (req, res) => {
-    res.render('dashboard');
+    res.render('dashboard', {profile:{}});
 });
 
 

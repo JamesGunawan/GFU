@@ -34,7 +34,7 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   width: 100%;
   max-width: 400px;
-  margin-top: -47.5vh;
+  margin-top: -50vh;
 }
 
 #login_button, #signup_button {
@@ -51,7 +51,7 @@ header {
 }
 
 .title {
-  margin-bottom: 50vh;
+  margin-bottom: 52.5vh;
 }
 
 h2 {

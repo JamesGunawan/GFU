@@ -121,7 +121,11 @@ document.getElementById('signUpForm').addEventListener('submit', async function 
 
     // If the response is successful, redirect them
     if (response.status === 201) {
-      window.location.href = `/profile${endpoint}`;
+      message.textContent = "Signup Succesfull! You can now login";
+      message.style.color = 'green';
+      setTimeout(() => {
+        document.querySelector('.flipbox_inner').classList.add('flipped');
+      }, 3000); // 3000 milliseconds = 3 seconds
     } else {
       message.textContent = result.message || 'An error occurred.';
       message.style.color = 'red';
