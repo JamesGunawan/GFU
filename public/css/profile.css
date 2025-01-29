@@ -130,3 +130,15 @@ body {
     margin-left: auto;
     margin-right: 107.5px;
 }
+
+.dashboard {
+    cursor: pointer;
+    color: rgb(12, 189, 12); 
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+  }
+  
+  .dashboard:hover {
+    color: rgb(0, 131, 0);
+  }
