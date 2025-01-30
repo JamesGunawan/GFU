@@ -16,6 +16,7 @@ import Student from './models/students.js';
 import Course from './models/courses.js';
 import StudentCourse from './models/student_courses.js';
 import Payment from './models/payments.js';
+import { registerCourse, unregisterCourse } from './routes/courseRoutes.js';
 
 // Define associations between models
 Student.belongsToMany(Course, { through: StudentCourse });
@@ -43,12 +44,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
-// Set auth routes
+// Set posting routes
 app.post('/studentSignup', studentSignup);
 app.post('/facultySignup', facultySignup);
 app.post('/adminSignup', adminSignup);
 app.post('/login', login);
 app.post('/updateProfile', updateProfile);
+app.post('/registerCourse', registerCourse)
+app.delete('/unregisterCourse', unregisterCourse);
+
 
 
 // Renders everything using a central router in ./routes/index.js

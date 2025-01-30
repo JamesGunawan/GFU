@@ -11,30 +11,31 @@
     <header>
         <nav class="navbar">
             <img src="/icons/logo.png" alt="GFU_logo" class="logo">
-            <div class="logo">Courses</div>
+            <div class="title">Courses</div>
             <ul class="nav-links">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/courses">Courses</a></li>
-                <li><a href="#">Student Services</a></li>
+                <li><a href="/studentservices">Student Services</a></li>
             </ul>
             <div class="settings-icon">
                 <a href="/profile"><img src="/icons/settings.png" alt="Settings"></a>
             </div>
         </nav>
     </header>
-
+    <h2 class="courses">All Available Courses</h2>
     <main class="courses-container">
-        <% courses.forEach((course) => { %>
-            <div class="course-card">
-                <h3><%= course.course_name %></h3>
-                <p>Professor: <%= course.professor %></p>
-                <p>Days: <%= course.schedule.days.join(', ') %></p>
-                <p>Time: <%= course.schedule.time %></p>
-                <p>Enrollment Cost: $<%= course.fee %></p>
-                <p>Credits: <%= course.credits %></p>
-                <button class="register-btn">Register</button>
-            </div>
-        <% }); %>
+        
+<% courses.forEach((course) => { %>
+    <div class="course-card">
+        <h3><%= course.course_name %></h3>
+        <p>Professor: <%= course.professor %></p>
+        <p>Days: <%= course.schedule.days.join(', ') %></p>
+        <p>Time: <%= course.schedule.time %></p>
+        <p>Enrollment Cost: $<%= course.fee %></p>
+        <p>Credits: <%= course.credits %></p>
+        <button class="register-button" data-course-id="<%= course.course_id %>">Register</button>
+    </div>
+<% }); %>
     </main>
 
     <footer>
@@ -42,6 +43,6 @@
     </footer>
 </div>
 
-    <script src="/javascript/dashboard.js"></script>
+    <script src="/javascript/courses.js"></script>
 </body>
 </html>
