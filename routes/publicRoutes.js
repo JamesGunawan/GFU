@@ -19,10 +19,4 @@ dashboardRouter.get('/dashboard', (req, res) => {
     res.render('dashboard', {profile:{}});
 });
 
-coursesRouter.get('/courses', (req, res) => {
-    res.render('courses', {profile:{}});
-});
-
-
-
 export { rootRouter, profileRouter, dashboardRouter, coursesRouter };

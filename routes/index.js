@@ -1,8 +1,9 @@
 // routes/index.js
 import express from 'express';
-import { rootRouter, profileRouter, dashboardRouter, coursesRouter } from './publicRoutes.js';
+import { rootRouter, profileRouter, dashboardRouter } from './publicRoutes.js';
 import { studentProfile, facultyProfile, adminProfile, updateProfile } from './profileRoutes.js';
 import { studentDashboard } from './dashboardRoutes.js';
+import { courseRouter } from './courseRoutes.js';
 
 const router = express.Router();
 
@@ -25,6 +26,6 @@ router.post('/', updateProfile);
 router.use('/', studentDashboard);
 
 // Displays course page
-router.use('/', coursesRouter);
+router.use('/', courseRouter);
 
 export default router;
