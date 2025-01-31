@@ -16,10 +16,10 @@ profileRouter.get('/profile', (req, res) => {
 });
 
 dashboardRouter.get('/dashboard', (req, res) => {
-    res.render('dashboard', {profile:{}});
+    res.render('dashboard', {profile:{}});  
 });
 
-studentServicesRouter.get('/studentservices', (req, res) =>{
+studentServicesRouter.get('/dashboard/studentservices', (req, res) =>{
     res.render('studentservices', {profile:{}});
 })
 

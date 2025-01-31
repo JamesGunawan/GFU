@@ -37,3 +37,62 @@ const dashboardLink = document.querySelector('a[href="/dashboard"]');
 if (userType && dashboardUrls[userType]) {
   dashboardLink.href = `${dashboardUrl}${dashboardUrls[userType]}?token=${token}`;
 }
+
+// Get the enrolled classes sidebar item
+const enrolledClassesItem = document.getElementById('enrolledClasses');
+
+// Add an event listener to the enrolled classes sidebar item
+enrolledClassesItem.addEventListener('click', async function () {
+    // Get the token from sessionStorage
+    const token = sessionStorage.getItem('jwt');
+
+    try {
+        // Fetch the enrolled courses for the student
+        const response = await fetch(`http://localhost:3000/courses/enrolledCourses?token=${token}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const enrolledCourses = await response.json();
+
+        // Render the enrolled courses in the details section
+        const detailsSection = document.querySelector('.details');
+        detailsSection.innerHTML = '';
+
+        enrolledCourses.forEach((course) => {
+            const courseCard = document.createElement('div');
+            courseCard.className = 'course-card';
+
+            const courseName = document.createElement('h3');
+            courseName.textContent = course.course_name;
+
+            const professor = document.createElement('p');
+            professor.textContent = `Professor: ${course.professor}`;
+
+            const days = document.createElement('p');
+            days.textContent = `Days: ${course.schedule.days.join(', ')}`;
+
+            const time = document.createElement('p');
+            time.textContent = `Time: ${course.schedule.time}`;
+
+            const enrollmentCost = document.createElement('p');
+            enrollmentCost.textContent = `Enrollment Cost: $${course.fee}`;
+
+            const credits = document.createElement('p');
+            credits.textContent = `Credits: ${course.credits}`;
+
+            courseCard.appendChild(courseName);
+            courseCard.appendChild(professor);
+            courseCard.appendChild(days);
+            courseCard.appendChild(time);
+            courseCard.appendChild(enrollmentCost);
+            courseCard.appendChild(credits);
+
+            detailsSection.appendChild(courseCard);
+        });
+    } catch (error) {
+        console.error('Error fetching enrolled courses:', error);
+    }
+});

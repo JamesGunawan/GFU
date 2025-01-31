@@ -155,10 +155,10 @@ const updateProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User  not found' });
     }
-    const existingUser  = await getUserTypeModel(userType).findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already in use' }); // Return error if email exists // FIX THIS
-    }
+    // const existingUser  = await getUserTypeModel(userType).findOne({ where: { email } });
+    // if (existingUser) {
+    //   return res.status(400).json({ message: 'Email already in use' }); // Return error if email exists // FIX THIS
+    // }
 
     // Log the model before the update
     console.log('Model Before Update:', user);

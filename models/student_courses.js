@@ -25,7 +25,7 @@ const StudentCourse = sequelize.define('StudentCourse', {
         allowNull: false
     },
     status: {
-        type: DataTypes.ENUM('enrolled', 'dropped', 'graduated'),
+        type: DataTypes.ENUM('enrolled', 'dropped', 'graduated', 'unavailable'),
         defaultValue: 'unavailable',
     }
 }); 
