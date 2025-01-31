@@ -202,22 +202,3 @@ Dependencies
 ### Frontend
 
 * `Vanilla JavaScript` for dynamic functionality.
-
-Contributing
-------------
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Submit a pull request with a detailed description of your changes.
-
-License
--------
-
-This project is licensed under the ISC License. See the LICENSE file for details.
-
-Contact
--------
-
-For any questions or issues, please contact the project maintainer.
