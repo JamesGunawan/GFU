@@ -7,18 +7,10 @@ const StudentCourse = sequelize.define('StudentCourse', {
     student_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        references: {
-            model: Student,
-            key: 'student_id'
-        }
     },
     course_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        references: {
-            model: Course,
-            key: 'course_id'
-        }
     },
     enrollment_date: {
         type: DataTypes.DATE,
@@ -29,5 +21,11 @@ const StudentCourse = sequelize.define('StudentCourse', {
         defaultValue: 'unavailable',
     }
 }); 
+
+// Define associations after all models are defined
+StudentCourse.associate = function(models) {
+    StudentCourse.belongsTo(models.Course, { foreignKey: 'course_id' });
+    StudentCourse.belongsTo(models.Student, { foreignKey: 'student_id' });
+};
 
 export default StudentCourse;

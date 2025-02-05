@@ -38,61 +38,63 @@ if (userType && dashboardUrls[userType]) {
   dashboardLink.href = `${dashboardUrl}${dashboardUrls[userType]}?token=${token}`;
 }
 
-// Get the enrolled classes sidebar item
-const enrolledClassesItem = document.getElementById('enrolledClasses');
 
-// Add an event listener to the enrolled classes sidebar item
-enrolledClassesItem.addEventListener('click', async function () {
-    // Get the token from sessionStorage
-    const token = sessionStorage.getItem('jwt');
+// Gets the element id and route it with the token
+const payments = document.getElementById('payments');
+payments.onclick = function() {
+  const token = sessionStorage.getItem('jwt');
+  window.location.href = `/dashboard/studentservices/payments?token=${token}`;
+}
+
+const classes = document.getElementById('enrolledClasses');
+classes.onclick = function() {
+  const token = sessionStorage.getItem('jwt');
+  window.location.href = `/dashboard/studentservices/enrolledClasses?token=${token}`;
+}
+
+// Get all the unregister buttons
+const unregisterButtons = document.querySelectorAll('.unregister-button');
+
+// Add an event listener to each button
+unregisterButtons.forEach(button => {
+  button.addEventListener('click', async function (e) {
+    // Prevent default button behavior
+    e.preventDefault();
+
+    // Get the course ID from the button's data attribute
+    const courseId = button.getAttribute('data-course-id');
+    const studentId = sessionStorage.getItem('userId'); // Assuming you store the student ID in sessionStorage
+
+    // Prepare the data to send in the request body
+    const unregistrationData = {
+      studentId: studentId,
+      courseId: courseId
+    };
 
     try {
-        // Fetch the enrolled courses for the student
-        const response = await fetch(`http://localhost:3000/courses/enrolledCourses?token=${token}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+      // Send a DELETE request to the backend to unregister the student from the course
+      const response = await fetch('/unregisterCourse', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(unregistrationData),
+      });
 
-        const enrolledCourses = await response.json();
+      const result = await response.json();
 
-        // Render the enrolled courses in the details section
-        const detailsSection = document.querySelector('.details');
-        detailsSection.innerHTML = '';
-
-        enrolledCourses.forEach((course) => {
-            const courseCard = document.createElement('div');
-            courseCard.className = 'course-card';
-
-            const courseName = document.createElement('h3');
-            courseName.textContent = course.course_name;
-
-            const professor = document.createElement('p');
-            professor.textContent = `Professor: ${course.professor}`;
-
-            const days = document.createElement('p');
-            days.textContent = `Days: ${course.schedule.days.join(', ')}`;
-
-            const time = document.createElement('p');
-            time.textContent = `Time: ${course.schedule.time}`;
-
-            const enrollmentCost = document.createElement('p');
-            enrollmentCost.textContent = `Enrollment Cost: $${course.fee}`;
-
-            const credits = document.createElement('p');
-            credits.textContent = `Credits: ${course.credits}`;
-
-            courseCard.appendChild(courseName);
-            courseCard.appendChild(professor);
-            courseCard.appendChild(days);
-            courseCard.appendChild(time);
-            courseCard.appendChild(enrollmentCost);
-            courseCard.appendChild(credits);
-
-            detailsSection.appendChild(courseCard);
-        });
+      // Check if the unregistration was successful
+      if (response.ok) {
+        alert('Successfully unregistered from the course!');
+        // Update the UI to reflect the unregistration status
+        button.textContent = 'Unregistered';
+        button.disabled = true;
+      } else {
+        alert(`Error: ${result.message}`);
+      }
     } catch (error) {
-        console.error('Error fetching enrolled courses:', error);
+      console.error('Error unregistering from course:', error);
+      alert('An error occurred while unregistering from the course.');
     }
-});
+  });
+}); 

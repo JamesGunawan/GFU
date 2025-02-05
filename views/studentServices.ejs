@@ -24,23 +24,39 @@
 
     <main class="student-services">
         <div class="sidebar">
-            <div class="sidebar-item">Fees and Payments</div>
+            <div class="sidebar-item" id ="payments">Fees and Payments</div>
             <div class="sidebar-item" id="enrolledClasses">Enrolled Classes</div>
             <div class="sidebar-item">Student Service</div>
             <div class="sidebar-item">Student Service</div>
             <div class="sidebar-item">Student Service</div>
             <div class="sidebar-item">Student Service</div>
-            
         </div>
+
         <div class="details">
-            <h2>Service Details</h2>
-            <p>Select a service from the left menu to view details and take actions.</p>
+        <h2>Service Details</h2>
+        <!-- In your EJS template -->
+        <% if (service === 'payments') { %>
+
+        <% } else if (service === 'enrolledClasses') { %>
+            <% courses.forEach((course) => { %>
+                <div class="course-card">
+                    <h3><%= course.course_name %></h3>
+                    <p>Professor: <%= course.professor %></p>
+                    <p>Days: <%= course.schedule.days.join(', ') %></p>
+                    <p>Time: <%= course.schedule.time %></p>
+                    <p>Enrollment Cost: $<%= course.fee %></p>
+                    <p>Credits: <%= course.credits %></p>
+                    <button class="unregister-button" data-course-id="<%= course.course_id %>">Unregister</button>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p><%= service.info || "Select a service from the left menu to view details and take actions." %></p>
+        <% } %>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 GFU. All rights reserved.</p>
-    </footer>
+        <p>&copy; 2025 GFU. All rights reserved.</p>    
     <script src="/javascript/studentservices.js"></script>
 </body>
 </html>

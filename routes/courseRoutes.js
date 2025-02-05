@@ -74,7 +74,7 @@ const registerCourse = async (req, res) => {
       if (deletedRegistration) {
         res.status(200).json({ message: 'Successfully unregistered from the course!' });
       } else {
-        res.status(404).json({ message: 'Registration not found.' });
+        res.status(404).json({ message: 'You are not registered for this course.' });
       }
     } catch (error) {
       console.error('Error:', error);

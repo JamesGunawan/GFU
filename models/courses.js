@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/dbconfig.js";
+import StudentCourse from "./student_courses.js";
 
-    const Course = sequelize.define('Courses', {
+const Course = sequelize.define('Courses', {
         course_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -33,5 +34,7 @@ import sequelize from "../config/dbconfig.js";
             allowNull: false
         }
     });
+
+Course.hasMany(StudentCourse, { foreignKey: 'course_id' });
 
 export default Course;

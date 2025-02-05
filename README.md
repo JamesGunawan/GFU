@@ -2,7 +2,7 @@ GFU (Greenfield University)
 Project Overview
 ================
 
-The GFU project is a web application designed to manage student, faculty, and admin profiles, course registrations, and authentication for a university system. It includes features like user signup, login, profile management, course enrollment, and dashboard views for different user roles.
+The GFU project is a web application designed to manage student, faculty, and admin profiles, course registrations, and authentication for a university system. It includes features like user signup, login, profile management, course enrollment, and dashboard views for different user roles.(though the only one that's mostly functional is the student user)
 
 Technologies Used
 -----------------
@@ -17,8 +17,6 @@ Technologies Used
 
 Project Structure
 -----------------
-
-### Backend
 
 #### Routes
 
@@ -202,22 +200,3 @@ Dependencies
 ### Frontend
 
 * `Vanilla JavaScript` for dynamic functionality.
-
-Contributing
-------------
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Submit a pull request with a detailed description of your changes.
-
-License
--------
-
-This project is licensed under the ISC License. See the LICENSE file for details.
-
-Contact
--------
-
-For any questions or issues, please contact the project maintainer.

@@ -20,7 +20,7 @@ dashboardRouter.get('/dashboard', (req, res) => {
 });
 
 studentServicesRouter.get('/dashboard/studentservices', (req, res) =>{
-    res.render('studentservices', {profile:{}});
+    res.render('studentservices', {service:{}});
 })
 
 

@@ -4,6 +4,7 @@ import { rootRouter, profileRouter, dashboardRouter, studentServicesRouter } fro
 import { studentProfile, facultyProfile, adminProfile, updateProfile } from './profileRoutes.js';
 import { studentDashboard } from './dashboardRoutes.js';
 import { courseRouter, registerCourse, unregisterCourse } from './courseRoutes.js';
+import { studentClasses, studentPayments } from './enrolledCoursesRoutes.js';
 
 const router = express.Router();
 
@@ -31,9 +32,13 @@ router.use('/', courseRouter);
 // Registers students to a course
 router.post('/', registerCourse);
 
+// Unregisters students from the course
 router.delete('/', unregisterCourse);
 
 // Displays the student services page
 router.use('/', studentServicesRouter);
+
+// Displays other student services routes  
+router.use('/', studentPayments, studentClasses)
 
 export default router;
