@@ -13,7 +13,7 @@ const studentSignup = async (req, res) => {
         Faculty.findOne({ where: { email } }),
         Admin.findOne({ where: { email } })
     ]);
-    if (existingStudent || existingFaculty || existingAdmin) {
+    if (existingStudent || existingFaculty || existingAdmin) { 44
         return res.status(400).json({ message: 'Email already in use' }); // Return
     }
 

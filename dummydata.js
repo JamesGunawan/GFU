@@ -1,5 +1,3 @@
-import Course from "./models/courses.js";
-
 const course1 = {
     course_name: 'Introduction to Computer Science',
     description: 'This course provides an introduction to the fundamental concepts of computer science.',

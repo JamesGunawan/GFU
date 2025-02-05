@@ -2,7 +2,7 @@ GFU (Greenfield University)
 Project Overview
 ================
 
-The GFU project is a web application designed to manage student, faculty, and admin profiles, course registrations, and authentication for a university system. It includes features like user signup, login, profile management, course enrollment, and dashboard views for different user roles.(though the only one that's mostly functional is the student user)
+The GFU project is a web application designed to manage student, faculty, and admin profiles, course registrations, and authentication for a university system. It includes features like user signup, login, profile management, course enrollment, and dashboard views for different user roles.
 
 Technologies Used
 -----------------

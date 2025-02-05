@@ -1,5 +1,4 @@
 import express from 'express';
-import Student from '../models/students.js';
 import Course from '../models/courses.js';
 import StudentCourse from '../models/student_courses.js';
 

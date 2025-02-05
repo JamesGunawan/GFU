@@ -50,7 +50,7 @@ registerButtons.forEach(button => {
 
     // Get the course ID from the button's data attribute
     const courseId = button.getAttribute('data-course-id');
-    const studentId = sessionStorage.getItem('userId'); // Assuming you store the student ID in sessionStorage
+    const studentId = sessionStorage.getItem('userId');
 
     // Prepare the data to send in the request body
     const registrationData = {
@@ -86,53 +86,3 @@ registerButtons.forEach(button => {
   });
 });
 
-// Get all the unregister buttons
-const unregisterButtons = document.querySelectorAll('.unregister-button');
-
-// Add an event listener to each button
-unregisterButtons.forEach(button => {
-  button.addEventListener('click', async function (e) {
-    // Prevent default button behavior
-    e.preventDefault();
-
-    // Get the course ID from the button's data attribute
-    const courseId = button.getAttribute('data-course-id');
-    const studentId = sessionStorage.getItem('userId'); // Assuming you store the student ID in sessionStorage
-
-    // Prepare the data to send in the request body
-    const unregistrationData = {
-      studentId: studentId,
-      courseId: courseId
-    };
-
-    try {
-      // Send a DELETE request to the backend to unregister the student from the course
-      const response = await fetch('/unregisterCourse', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(unregistrationData),
-      });
-
-      const result = await response.json();
-
-      // Check if the unregistration was successful
-      if (response.ok) {
-        alert('Successfully unregistered from the course!');
-        // Update the UI to reflect the unregistration status
-        button.textContent = 'Unregistered';
-        button.disabled = true;
-        // Enable the Register button
-        const registerButton = button.parentNode.querySelector('.register-button');
-        registerButton.disabled = false;
-        registerButton.textContent = 'Register';
-      } else {
-        alert(`Error: ${result.message}`);
-      }
-    } catch (error) {
-      console.error('Error unregistering from course:', error);
-      alert('An error occurred while unregistering from the course.');
-    }
-  });
-});

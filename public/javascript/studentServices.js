@@ -63,7 +63,7 @@ unregisterButtons.forEach(button => {
 
     // Get the course ID from the button's data attribute
     const courseId = button.getAttribute('data-course-id');
-    const studentId = sessionStorage.getItem('userId'); // Assuming you store the student ID in sessionStorage
+    const studentId = sessionStorage.getItem('userId');
 
     // Prepare the data to send in the request body
     const unregistrationData = {

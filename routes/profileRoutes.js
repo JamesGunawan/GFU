@@ -155,10 +155,19 @@ const updateProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User  not found' });
     }
-    // const existingUser  = await getUserTypeModel(userType).findOne({ where: { email } });
-    // if (existingUser) {
-    //   return res.status(400).json({ message: 'Email already in use' }); // Return error if email exists // FIX THIS
-    // }
+
+    const userTypes = ["student", "faculty", "admin"]; // All possible user types
+    const otherUserTypes = userTypes.filter(type => type !== userType); // Exclude the current type
+    
+    // Check all other user types concurrently
+    const existingUser = await Promise.all(
+      otherUserTypes.map(type => getUserTypeModel(type).findOne({ where: { email } }))
+    ).then(results => results.find(user => user)); // Find the first non-null result
+    
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use by another user type" });
+    }
+    
 
     // Log the model before the update
     console.log('Model Before Update:', user);
@@ -180,7 +189,7 @@ const updateProfile = async (req, res) => {
     return res.json({ message: 'Profile updated successfully' });
   } catch (error) {
     console.error('Error updating profile:', error);
-    return res.status(500).json({ message: 'Error updating profile', error: error.message });
+    return res.status(500).json({ message: 'Error updating profile', error: error.message});
   }
 };
 

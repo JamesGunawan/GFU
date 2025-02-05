@@ -43,8 +43,8 @@ document.querySelector('.save-button').addEventListener('click', async (e) => {
     
 
     // Get user type and user ID from sessionStorage or decoded JWT token
-    const userType = sessionStorage.getItem('userType'); // Example: 'student', 'admin'
-    const userId = sessionStorage.getItem('userId'); // Assuming you stored the userId in sessionStorage
+    const userType = sessionStorage.getItem('userType');
+    const userId = sessionStorage.getItem('userId');
 
     // If the user is not authenticated or doesn't exist, show an error
     if (!userType || !userId) {
@@ -73,6 +73,7 @@ document.querySelector('.save-button').addEventListener('click', async (e) => {
         userId
     };
 
+
     // Revert the input fields back to <h4> elements and set the content to the updated values
     const editableInputs = document.querySelectorAll('.editable-input');
     editableInputs.forEach(input => {
@@ -82,6 +83,12 @@ document.querySelector('.save-button').addEventListener('click', async (e) => {
         h4.textContent = inputValue === '' ? 'No Date of Birth' : inputValue; // Set the text to the new value from the input, or "No Date of Birth" if empty
         input.parentNode.replaceChild(h4, input); // Replace the input with the updated <h4>
     });
+
+    // Check if dob is empty
+    if (!dob.trim()) {
+        alert("Date of Birth cannot be empty! Please enter a valid DOB.");
+        return; // Stop execution if dob is empty
+    }
 
     // Send the updated data to the backend for saving
     try {
@@ -97,7 +104,7 @@ document.querySelector('.save-button').addEventListener('click', async (e) => {
 
         // Check if the update was successful
         if (response.ok) {
-            alert('Profile updated successfully!');
+            alert('Profile updated successfully!'); 
         } else {
             alert(`Error updating profile: ${result.message}`);
         }
