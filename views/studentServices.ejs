@@ -26,21 +26,42 @@
         <div class="sidebar">
             <div class="sidebar-item" id ="payments">Fees and Payments</div>
             <div class="sidebar-item" id="enrolledClasses">Enrolled Classes</div>
-            <div class="sidebar-item">Student Service</div>
-            <div class="sidebar-item">Student Service</div>
-            <div class="sidebar-item">Student Service</div>
-            <div class="sidebar-item">Student Service</div>
+            <div class="sidebar-item"> (Other) Student Services</div>
         </div>
 
         <div class="details">
         <h2>Service Details</h2>
         <!-- In your EJS template -->
         <% if (service === 'payments') { %>
-
+                <p>Here you can see the payments and fees</p>
+                <div class="course-fees">
+                  <div class="course-fee">
+                    <h3>Introduction to Computer Science</h3>
+                    <p>Fee: $500.00</p>
+                    <p>Status: <span class="status pending">Pending</span></p>
+                    <p>Amount Paid: $0.00</p>
+                    <p>Paid At: -</p>
+                  </div>
+                  <div class="course-fee">
+                    <h3>Data Structures and Algorithms</h3>
+                    <p>Fee: $600.00</p>
+                    <p>Status: <span class="status pending">Pending</span></p>
+                    <p>Amount Paid: $0.00</p>
+                    <p>Paid At: -</p>
+                  </div>
+                  <div class="course-fee">
+                    <h3>Web Development</h3>
+                    <p>Fee: $550.00</p>
+                    <p>Status: <span class="status pending">Pending</span></p>
+                    <p>Amount Paid: $0.00</p>
+                    <p>Paid At: -</p>
+                  </div>
+                </div>
         <% } else if (service === 'enrolledClasses') { %>
+            <p> Here you can unregister for classes</p>
             <% courses.forEach((course) => { %>
                 <div class="course-card">
-                    <h3><%= course.course_name %></h3>
+                    <h3><%= course.course_name   %></h3>
                     <p>Professor: <%= course.professor %></p>
                     <p>Days: <%= course.schedule.days.join(', ') %></p>
                     <p>Time: <%= course.schedule.time %></p>

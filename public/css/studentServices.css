@@ -163,6 +163,45 @@ a {
     background-color: #b30000;
 }
 
+.fees-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-fees {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .course-fee {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px;
+    width: calc(33.33% - 20px);
+  }
+  
+  .course-fee h3 {
+    margin-top: 0;
+  }
+  
+  .status {
+    font-weight: bold;
+  }
+  
+  .status.pending {
+    color: #ff9900;
+  }
+  
+  .status.paid {
+    color: #2ecc71;
+  }
+
 /* Footer styles */
 footer {
     background-color: #2e8b57; /* Same greenish theme */
